@@ -1,0 +1,15 @@
+{
+  "title": "Sherlock - Check available usernames",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "searchTerms": {
+      "title": "What usernames would you like to check?",
+      "type": "array",
+      "prefill": ["Apify"],
+      "editor": "stringList",
+      "description": "Added usernames will be checked for availability on more than 300 websites on the internet."
+    }
+  },
+  "required": ["usernames"]
+}

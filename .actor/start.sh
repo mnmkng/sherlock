@@ -6,7 +6,7 @@ echo "Reading usernames"
 IFS=" " read -r -a INPUT <<< "$(apify actor:get-input | jq -r '.usernames | join(" ")')"
 
 echo "Usernames to check: ${INPUT[*]}"
-python3 ./sherlock/sherlock.py --csv --timeout=3 "${INPUT[@]}"
+python3 ./sherlock/sherlock.py --csv --timeout=3 --print-found "${INPUT[@]}"
 
 for val in "${INPUT[@]}"
 do
