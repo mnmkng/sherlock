@@ -1,7 +1,6 @@
 #!/bin/bash
 
 set -e
-export APIFY_LOCAL_STORAGE_DIR="./apify_storage"
 
 echo "Reading usernames"
 IFS=" " read -r -a INPUT <<< "$(apify actor:get-input | jq -r '.usernames | join(" ")')"
