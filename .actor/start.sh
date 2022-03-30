@@ -12,5 +12,5 @@ for val in "${INPUT[@]}"
 do
     < "${val}.csv" \
     python -c 'import csv, json, sys; print(json.dumps([dict(r) for r in csv.DictReader(sys.stdin)]))' \
-    | cat
+    | apify actor:push-data
 done
