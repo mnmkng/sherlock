@@ -4,10 +4,10 @@ set -e
 export APIFY_LOCAL_STORAGE_DIR="./apify_storage"
 
 echo "Reading usernames"
-IFS=" " read -r -a INPUT <<< "$(apify actor:get-input)"
+IFS=" " read -r -a INPUT <<< "$(apify actor:get-input | jq -r '.usernames | join(" ")')"
 
 echo "Usernames to check: ${INPUT[*]}"
-python3 ../sherlock/sherlock.py --csv --timeout=3 "${INPUT[@]}"
+python3 ./sherlock/sherlock.py --csv --timeout=3 "${INPUT[@]}"
 
 for val in "${INPUT[@]}"
 do

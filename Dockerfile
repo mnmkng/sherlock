@@ -18,4 +18,4 @@ RUN pip3 install -r requirements.txt -f /wheels \
 RUN npm install -g apify-cli@0.7.1-beta.1
 WORKDIR /opt/sherlock/sherlock
 
-CMD ./start.sh
+CMD ./.actor/start.sh
