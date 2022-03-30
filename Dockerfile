@@ -1,18 +1,10 @@
-FROM python:3.7-alpine as build
+FROM nikolaik/python-nodejs:python3.7-nodejs16 as build
 WORKDIR /wheels
-RUN apk add --no-cache \
-    g++ \
-    gcc \
-    git \
-    libxml2 \
-    libxml2-dev \
-    libxslt-dev \
-    linux-headers
 COPY requirements.txt /opt/sherlock/
 RUN pip3 wheel -r /opt/sherlock/requirements.txt
 
 
-FROM python:3.7-alpine
+FROM nikolaik/python-nodejs:python3.7-nodejs16
 WORKDIR /opt/sherlock
 ARG VCS_REF
 ARG VCS_URL="https://github.com/sherlock-project/sherlock"
@@ -23,6 +15,7 @@ COPY . /opt/sherlock/
 RUN pip3 install -r requirements.txt -f /wheels \
   && rm -rf /wheels \
   && rm -rf /root/.cache/pip/*
+RUN npm install -g apify-cli@0.7.1-beta.0
 WORKDIR /opt/sherlock/sherlock
 
-ENTRYPOINT ["python", "sherlock.py"]
+CMD ./start.sh

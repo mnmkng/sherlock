@@ -30,3 +30,5 @@ tests/.excluded_sites
 
 # Vim swap files
 *.swp
+
+apify_storage/
