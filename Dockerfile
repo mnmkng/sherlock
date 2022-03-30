@@ -5,6 +5,7 @@ RUN pip3 wheel -r /opt/sherlock/requirements.txt
 
 
 FROM nikolaik/python-nodejs:python3.7-nodejs16
+RUN apt-get update && apt-get install jq -y
 WORKDIR /opt/sherlock
 ARG VCS_REF
 ARG VCS_URL="https://github.com/sherlock-project/sherlock"
