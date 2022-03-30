@@ -15,7 +15,7 @@ COPY . /opt/sherlock/
 RUN pip3 install -r requirements.txt -f /wheels \
   && rm -rf /wheels \
   && rm -rf /root/.cache/pip/*
-RUN npm install -g apify-cli@0.7.1-beta.0
+RUN npm install -g apify-cli@0.7.1-beta.1
 WORKDIR /opt/sherlock/sherlock
 
 CMD ./start.sh
