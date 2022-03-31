@@ -3,10 +3,10 @@
   "type": "object",
   "schemaVersion": 1,
   "properties": {
-    "searchTerms": {
+    "usernames": {
       "title": "What usernames would you like to check?",
       "type": "array",
-      "prefill": ["Apify"],
+      "prefill": ["sherlock"],
       "editor": "stringList",
       "description": "Added usernames will be checked for availability on more than 300 websites on the internet."
     }
