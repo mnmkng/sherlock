@@ -2,7 +2,7 @@
 FROM nikolaik/python-nodejs:python3.7-nodejs16 as build
 
 # Install the Apify CLI globally, to /usr/lib/node_modules
-RUN npm install -g apify-cli@0.7.1-beta.4
+RUN npm install -g apify-cli
 
 # To save space, we can use the slim image for running
 FROM nikolaik/python-nodejs:python3.7-nodejs16-slim as run
