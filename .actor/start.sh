@@ -2,15 +2,17 @@
 
 set -e
 
-echo "Reading usernames"
-IFS=" " read -r -a INPUT <<< "$(apify actor:get-input | jq -r '.usernames | join(" ")')"
+# Input is a JSON with an array of usernames under the `usernames` property
+echo "Reading usernames from input..."
+usernames=$(apify actor:get-input | jq -r '.usernames | join(" ")')
+echo "Usernames to check: ${usernames}"
 
-echo "Usernames to check: ${INPUT[*]}"
-python3 ./sherlock/sherlock.py --csv --timeout=3 --print-found "${INPUT[@]}"
+# Run Sherlock to check for the usernames' availability, and save results to the `results` folder
+python3 ./sherlock/sherlock.py --csv --folderoutput results --timeout=3 --print-found ${usernames}
 
-for val in "${INPUT[@]}"
-do
-    < "${val}.csv" \
-    python -c 'import csv, json, sys; print(json.dumps([dict(r) for r in csv.DictReader(sys.stdin)]))' \
-    | apify actor:push-data
-done
+# use Miller to join the CSVs and transform them to JSON,
+# and then push that JSON the actor output
+echo "Pushing results to dataset..."
+mlr --icsv --ojson --jlistwrap cat results/*.csv | apify actor:push-data
+
+echo "Done."
